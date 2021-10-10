@@ -38,8 +38,8 @@ def form_templatevars():
     url_32 = ((windows)[0])["browser_download_url"]
     url_64 = ((windows)[1])["browser_download_url"]
 
-    sha1_32 = (re.search(r"(.{40})\s\sQMPlay2-Win(32)-\d", str(response_git.json()["body"]))).group(1)
-    sha1_64 = (re.search(r"(.{40})\s\sQMPlay2-Win(64)-\d", str(response_git.json()["body"]))).group(1)
+    checksum_32 = (re.search(r"(.{40})\s\sQMPlay2-Win(32)-\d", str(response_git.json()["body"]))).group(1)
+    checksum_64 = (re.search(r"(.{40})\s\sQMPlay2-Win(64)-\d", str(response_git.json()["body"]))).group(1)
 
     changelog = (re.search(r".*Changes.+\n(.*\n)*---", str(response_git.json()["body"]))).group(0)
     # changelog = (re.search(r'.*Change.*\n(.*\n)*\n', str(response_git.json()['body']))).group(0)
@@ -49,8 +49,8 @@ def form_templatevars():
     dict_provision = {
         "url_32": url_32,
         "url_64": url_64,
-        "sha1_32": sha1_32,
-        "sha1_64": sha1_64,
+        "checksum_32": checksum_32,
+        "checksum_64": checksum_64,
         "version": git_ver,
         "changelog": changelog,
     }
