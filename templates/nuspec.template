@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>qmplay2</id>
+    <version>{{ version }}</version>
+    <owners>saibaneko</owners>
+    <title>qmplay2 (Install)</title>
+    <authors>Błażej Szczygieł (zaps166)</authors>
+    <projectUrl>https://github.com/zaps166/QMPlay2</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/zaps166/QMPlay2/master/src/gui/Windows/QMPlay2.ico</iconUrl>
+    <licenseUrl>https://raw.githubusercontent.com/zaps166/QMPlay2/master/LICENSE</licenseUrl>
+    <tags>qmplay2 videoplayer mediaplayer youtube prostopleer freeware</tags>
+    <summary>QMPlay2 is a video and audio player which can play most formats and codecs.</summary>
+    <description>QMPlay2 is a video and audio player. It can play all formats supported by FFmpeg, libmodplug (including J2B and SFX). It also supports Audio CD, raw files, Rayman 2 music and chiptunes. It contains YouTube and Prostopleer browser.</description>
+    <releaseNotes>{{ changelog }}</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

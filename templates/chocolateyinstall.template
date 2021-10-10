@@ -1,0 +1,24 @@
+﻿
+$ErrorActionPreference = 'Stop';
+$toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$url        = '{{ url_32 }}'
+$url64      = '{{ url_64 }}'
+
+$packageArgs = @{
+  packageName   = $env:ChocolateyPackageName
+  unzipLocation = $toolsDir
+  fileType      = 'exe'
+  url           = $url
+  url64bit      = $url64
+
+  softwareName  = 'qmplay2*'
+
+  checksum      = '{{ checksum_32 }}'
+  checksumType  = 'sha-1'
+  checksum64    = '{{ checksum_64 }}'
+  checksumType64= 'sha-1'
+
+  silentArgs   = '--Auto'
+}
+
+Install-ChocolateyPackage @packageArgs
