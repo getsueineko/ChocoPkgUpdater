@@ -1,0 +1,10 @@
+program:
+    owner: 'zaps166'
+    repo: 'QMPlay2'
+regexp_mask:
+    choco_ver: '\d{2}\.\d{2}\.\d{2}'
+    checksum_32: '(.{40})\s\sQMPlay2-Win(32)'
+    checksum_64: '(.{40})\s\sQMPlay2-Win(64)'
+    changelog_prepare: '.*Changes.+\n(.*\n)*---'
+    changelog_final: '^(?!.*Linux|.*KDE|.*Changes).*,'  
+    
