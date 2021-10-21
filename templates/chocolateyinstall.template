@@ -14,11 +14,11 @@ $packageArgs = @{
   softwareName  = 'qmplay2*'
 
   checksum      = '{{ checksum_32 }}'
-  checksumType  = 'sha-1'
+  checksumType  = '{{ checksumType }}'
   checksum64    = '{{ checksum_64 }}'
-  checksumType64= 'sha-1'
+  checksumType64= '{{ checksumType }}'
 
-  silentArgs   = '--Auto'
+  silentArgs   = '{{ silentArgs }}'
 }
 
 Install-ChocolateyPackage @packageArgs
