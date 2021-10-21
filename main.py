@@ -14,7 +14,7 @@ from jinja2 import Template
 from loguru import logger
 
 
-with open("settings/config2.yaml", "r") as ymlfile:
+with open("settings/config.yaml", "r") as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.SafeLoader)
 
 if cfg['config']['logging']['file_log_enabled']:
