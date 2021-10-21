@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# Choco Package Updater
+# Chocolatey Automatic Package Updater
 
 
 import re
