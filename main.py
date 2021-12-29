@@ -51,8 +51,10 @@ class Program:
         #checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
         inmemfile_32 = io.BytesIO(requests.get(url_32).content)
         checksum_32 = sha256(inmemfile_32.getbuffer()).hexdigest()
+        inmemfile_32.close()
         inmemfile_64 = io.BytesIO(requests.get(url_64).content)
         checksum_64 = sha256(inmemfile_64.getbuffer()).hexdigest()
+        inmemfile_64.close()
 
         changelog = (re.search(self.app["regexp_mask"]["changelog_prepare"], str(self.response_git.json()["body"]))).group(0)
         changelog = re.findall(self.app["regexp_mask"]["changelog_final"], changelog, re.MULTILINE)
