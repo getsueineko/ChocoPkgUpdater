@@ -15,12 +15,13 @@ config:
             tags: 'qmplay2 videoplayer mediaplayer youtube prostopleer freeware'
             summary: 'QMPlay2 is a video and audio player which can play most formats and codecs.'
             description: 'QMPlay2 is a video and audio player. It can play all formats supported by FFmpeg, libmodplug (including J2B and SFX). It also supports Audio CD, raw files, Rayman 2 music and chiptunes. It contains YouTube and Prostopleer browser.'
-            checksumType: 'sha-1'
+            #checksumType: 'sha-1'
+            checksumType: 'sha256'
             silentArgs: '--Auto'
             regexp_mask:
                 choco_ver: '\d{2}\.\d{2}\.\d{2}'
-                checksum_32: '(.{40})\s\sQMPlay2-Win(32)'
-                checksum_64: '(.{40})\s\sQMPlay2-Win(64)'
+                #checksum_32: '(.{40})\s\sQMPlay2-Win(32)'
+                #checksum_64: '(.{40})\s\sQMPlay2-Win(64)'
                 changelog_prepare: '.*Changes.+\n(.*\n)*---'
-                changelog_final: '^(?!.*Linux|.*AppImage|.*KDE|.*Changes).*,'  version for multiple
+                changelog_final: '^(?!.*Linux|.*AppImage|.*KDE|.*Changes).*,'
                 
