@@ -3,16 +3,16 @@
 # -*- coding: utf-8 -*-
 # Chocolatey Automatic Package Updater
 
-
+import io
 import re
 import subprocess
+from hashlib import sha256
 
 import requests
 import yaml
 from bs4 import BeautifulSoup
 from jinja2 import Template
 from loguru import logger
-
 
 with open("settings/config.yaml", "r") as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.SafeLoader)
@@ -47,8 +47,12 @@ class Program:
         url_32 = ((windows)[0])["browser_download_url"]
         url_64 = ((windows)[1])["browser_download_url"]
 
-        checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
-        checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
+        #checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
+        #checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
+        inmemfile_32 = io.BytesIO(requests.get(url_32).content)
+        checksum_32 = sha256(inmemfile_32.getbuffer()).hexdigest()
+        inmemfile_64 = io.BytesIO(requests.get(url_64).content)
+        checksum_64 = sha256(inmemfile_64.getbuffer()).hexdigest()
 
         changelog = (re.search(self.app["regexp_mask"]["changelog_prepare"], str(self.response_git.json()["body"]))).group(0)
         changelog = re.findall(self.app["regexp_mask"]["changelog_final"], changelog, re.MULTILINE)
