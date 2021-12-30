@@ -37,6 +37,12 @@ class Program:
         choco_ver = (re.search(self.app["regexp_mask"]["choco_ver"], str(page_items))).group(0)
         return choco_ver
 
+    def get_checksum(self, url):
+        inmemfile = io.BytesIO(requests.get(url).content)
+        checksum = sha256(inmemfile.getbuffer()).hexdigest()
+        inmemfile.close()
+        return checksum
+
     def form_template_vars(self):
         windows = list(
             filter(
@@ -47,14 +53,11 @@ class Program:
         url_32 = ((windows)[0])["browser_download_url"]
         url_64 = ((windows)[1])["browser_download_url"]
 
-        #checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
-        #checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
-        inmemfile_32 = io.BytesIO(requests.get(url_32).content)
-        checksum_32 = sha256(inmemfile_32.getbuffer()).hexdigest()
-        inmemfile_32.close()
-        inmemfile_64 = io.BytesIO(requests.get(url_64).content)
-        checksum_64 = sha256(inmemfile_64.getbuffer()).hexdigest()
-        inmemfile_64.close()
+        # checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
+        # checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
+        checksum_32 = self.get_checksum(url_32)
+        checksum_64 = self.get_checksum(url_64)
+        
 
         changelog = (re.search(self.app["regexp_mask"]["changelog_prepare"], str(self.response_git.json()["body"]))).group(0)
         changelog = re.findall(self.app["regexp_mask"]["changelog_final"], changelog, re.MULTILINE)
