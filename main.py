@@ -56,8 +56,7 @@ class Program:
         # checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
         # checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
         checksum_32 = self.get_checksum(url_32)
-        checksum_64 = self.get_checksum(url_64)
-        
+        checksum_64 = self.get_checksum(url_64)        
 
         changelog = (re.search(self.app["regexp_mask"]["changelog_prepare"], str(self.response_git.json()["body"]))).group(0)
         changelog = re.findall(self.app["regexp_mask"]["changelog_final"], changelog, re.MULTILINE)
