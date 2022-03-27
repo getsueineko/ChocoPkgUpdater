@@ -23,5 +23,5 @@ config:
                 #checksum_32: '(.{40})\s\sQMPlay2-Win(32)'
                 #checksum_64: '(.{40})\s\sQMPlay2-Win(64)'
                 changelog_prepare: '.*Changes.+\n(.*\n)*---'
-                changelog_final: '^(?!.*Linux|.*AppImage|.*KDE|.*Changes).*,'
+                changelog_final: '^(?!.*Linux|.*AppImage|.*KDE|.*Changes|.*macOS|.*PipeWire).*,'
                 
