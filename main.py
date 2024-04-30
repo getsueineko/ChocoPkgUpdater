@@ -37,13 +37,6 @@ class Program:
         title_text = title_tag.get_text()
         choco_ver = re.search(r'(\d+\.\d+\.\d+)', title_text).group(0)
         return choco_ver
-        # soup = BeautifulSoup(self.response_choco.text, "lxml")
-        # td_tag = soup.find("td", class_="version")
-        # span_tag = td_tag.find("span") 
-        # choco_ver = (re.search(r'(?P<ver>\d+\.\d+\.\d+)', span_tag.text)).group(0)
-        # # page_items = soup.find_all("span", class_="ms-2")
-        # # choco_ver = (re.search(self.app["regexp_mask"]["choco_ver"], str(page_items))).group(0)
-        # return choco_ver
 
     def get_checksum(self, url):
         inmemfile = io.BytesIO(requests.get(url).content)
