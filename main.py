@@ -32,10 +32,18 @@ class Program:
         return git_ver
 
     def get_choco_ver(self):
-        soup = BeautifulSoup(self.response_choco.text, "lxml")
-        page_items = soup.find_all("span", class_="ms-2")
-        choco_ver = (re.search(self.app["regexp_mask"]["choco_ver"], str(page_items))).group(0)
+        soup = BeautifulSoup(self.response_choco.text, "lxml")        
+        title_tag = soup.find("title")
+        title_text = title_tag.get_text()
+        choco_ver = re.search(r'(\d+\.\d+\.\d+)', title_text).group(0)
         return choco_ver
+        # soup = BeautifulSoup(self.response_choco.text, "lxml")
+        # td_tag = soup.find("td", class_="version")
+        # span_tag = td_tag.find("span") 
+        # choco_ver = (re.search(r'(?P<ver>\d+\.\d+\.\d+)', span_tag.text)).group(0)
+        # # page_items = soup.find_all("span", class_="ms-2")
+        # # choco_ver = (re.search(self.app["regexp_mask"]["choco_ver"], str(page_items))).group(0)
+        # return choco_ver
 
     def get_checksum(self, url):
         inmemfile = io.BytesIO(requests.get(url).content)
@@ -46,12 +54,12 @@ class Program:
     def form_template_vars(self):
         windows = list(
             filter(
-                lambda platform: platform["content_type"] == "application/x-ms-dos-executable",
+                lambda platform: platform["content_type"] == "application/x-msdownload",
                 self.response_git.json()["assets"],
             )
         )
-        url_32 = ((windows)[0])["browser_download_url"]
-        url_64 = ((windows)[1])["browser_download_url"]
+        url_32 = ((windows)[1])["browser_download_url"]
+        url_64 = ((windows)[4])["browser_download_url"]
 
         # checksum_32 = (re.search(self.app["regexp_mask"]["checksum_32"], str(self.response_git.json()["body"]))).group(1)
         # checksum_64 = (re.search(self.app["regexp_mask"]["checksum_64"], str(self.response_git.json()["body"]))).group(1)
@@ -104,7 +112,7 @@ if __name__ == "__main__":
         target_program = Program(app)
         # print(target_program.app)
 
-        if target_program.get_git_ver() == target_program.get_choco_ver():
+        if target_program.get_git_ver() == target_program.get_choco_ver():    
             print("No updates. Time to drunch!")
         else:
             print("Oh no! Time to new build! Go ahead!")
@@ -113,5 +121,5 @@ if __name__ == "__main__":
             write_manifests("chocolateyinstall.template", "fitter/tools/chocolateyinstall.ps1")
             write_manifests("nuspec.template", f"fitter/{target_program.app['repo'].lower()}.nuspec")
 
-            logger.debug(run_command("cd fitter/ && choco pack"))
+            # logger.debug(run_command("cd fitter/ && choco pack"))
             # run_command(f'cd fitter/ && choco push {target_program.repo.lower()}.{git_ver}.nupkg --source https://push.chocolatey.org/') # uncomment for prod
